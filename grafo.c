@@ -82,7 +82,7 @@ void liberarGrafo(Grafo *grafoEliminar) {
 Grafo *importarGrafo() {
     int i, j, tam;
     char buffer[50];
-    FILE *grafoArchivo = fopen("../data/EjemploGrafoVuelos.txt", "r");
+    FILE *grafoArchivo = fopen("EjemploGrafoVuelos.txt", "r");
     Grafo *grafoTemp = NULL;
 
     if (!validarFormatoArchivo(grafoArchivo)) {
