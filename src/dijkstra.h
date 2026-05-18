@@ -3,7 +3,6 @@
 
 #include "grafo.h"
 
-
 // Devuelve el índice del nodo con menor distancia no visitado
 int obtenerMinimo(double *distancias, int *visitados, int vertices);
 
