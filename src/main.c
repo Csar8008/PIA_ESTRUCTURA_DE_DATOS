@@ -2,6 +2,7 @@
 #include <windows.h>
 #include "grafo.h"
 #include "dijkstra.h"
+#include "utils.h"
 
 int main()
 {
@@ -29,6 +30,7 @@ int main()
 
         printf("\nOpcion: ");
         scanf("%d", &opcion);
+        opcion = solicitarEntero(0,2);
 
         switch (opcion)
         {
@@ -47,10 +49,10 @@ int main()
             }
 
             printf("\nOrigen: ");
-            scanf("%d", &origen);
+            origen = solicitarEntero(0, (vuelos->vertices) - 1);
 
             printf("Destino: ");
-            scanf("%d", &destino);
+            destino = solicitarEntero(0, (vuelos->vertices) - 1);
 
             printf("\n1. Mostrando todos los caminos posibles\n"); // muestra los caminos
             mostrarTodosLosCaminos(vuelos, origen, destino);
@@ -58,7 +60,7 @@ int main()
             printf("1. Menor tiempo\n");
             printf("2. Menor costo\n");
             printf("Opcion: "); // muestra el mejor camino en base a las necesidades del usuario
-            scanf("%d", &tipo);
+            tipo = solicitarEntero(1, 2);
             dijkstra(vuelos, origen, destino, tipo);
 
             break;
