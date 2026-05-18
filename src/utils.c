@@ -56,7 +56,7 @@ int solicitarEntero(int limiteInferior, int limiteSuperior)
             }
         }
 
-        if (longitud <= 1)
+        if (longitud == 0)
         {
             printf("Error, cadena vacia, favor de ingresar una cadena valida: ");
             bandera = 0;
