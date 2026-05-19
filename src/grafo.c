@@ -191,3 +191,89 @@ void imprimirMatriz(Grafo *grafo)
     }
     printf("\n");
 }
+
+// Modificar o agregar valores a una ruta existente
+void modificarRuta(Grafo *grafoModificar, int origen, int destino, int tiempo, double costo)
+{
+    grafoModificar->matriz[origen][destino].tiempoVuelo = tiempo;
+    grafoModificar->matriz[origen][destino].costoVuelo = costo;
+    printf("\nRuta actualizada correctamente\n");
+}
+
+// Eliminar una ruta (tanto el costo como el tiempo se convierten a cero)
+void eliminarRuta(Grafo *grafoEliminar, int origen, int destino)
+{
+    grafoEliminar->matriz[origen][destino].tiempoVuelo = 0;
+    grafoEliminar->matriz[origen][destino].costoVuelo = 0.0;
+    printf("\nRuta eliminada correctamente\n");
+}
+
+// Agregar una nueva ciudad (Se escala la matriz y las etiquetas)
+void agregarCiudad(Grafo *grafoModificar, char *nombreCiudad)
+{
+    int vertices, i;
+    vertices = grafoModificar->vertices;
+    grafoModificar->vertices++; 
+
+    grafoModificar->etiquetas = (char **)realloc(grafoModificar->etiquetas, grafoModificar->vertices * sizeof(char *));
+    grafoModificar->etiquetas[vertices] = (char *)malloc(30 * sizeof(char));
+    strcpy(grafoModificar->etiquetas[vertices], nombreCiudad);
+
+    grafoModificar->matriz = (Peso **)realloc(grafoModificar->matriz, grafoModificar->vertices * sizeof(Peso *));
+
+    for (i = 0; i < vertices; i++)
+    {
+        grafoModificar->matriz[i] = (Peso *)realloc(grafoModificar->matriz[i], grafoModificar->vertices * sizeof(Peso));
+        grafoModificar->matriz[i][vertices].tiempoVuelo = 0; // Inicializamos en 0 la nueva celda
+        grafoModificar->matriz[i][vertices].costoVuelo = 0.0;
+    }
+
+    grafoModificar->matriz[vertices] = (Peso *)malloc(grafoModificar->vertices * sizeof(Peso));
+    for (i = 0; i < grafoModificar->vertices; i++)
+    {
+        grafoModificar->matriz[vertices][i].tiempoVuelo = 0;
+        grafoModificar->matriz[vertices][i].costoVuelo = 0.0;
+    }
+    printf("\nCiudad agregada correctamente a la matriz\n");
+}
+
+// Eliminar una ciudad (Se reduce la matriz y las etiquetas)
+void eliminarCiudad(Grafo *grafoEliminar, int indice)
+{
+    int vertices, i, j;
+    if (grafoEliminar->vertices <= 1)
+    {
+        printf("\nError. No se puede eliminar la unica ciudad existente\n");
+        return;
+    }
+
+    vertices = grafoEliminar->vertices;
+
+    free(grafoEliminar->etiquetas[indice]);
+    for (i = indice; i < vertices - 1; i++)
+    {
+        grafoEliminar->etiquetas[i] = grafoEliminar->etiquetas[i + 1];
+    }
+    grafoEliminar->etiquetas = (char **)realloc(grafoEliminar->etiquetas, (vertices - 1) * sizeof(char *));
+
+    free(grafoEliminar->matriz[indice]);
+
+    for (i = indice; i < vertices - 1; i++)
+    {
+        grafoEliminar->matriz[i] = grafoEliminar->matriz[i + 1];
+    }
+
+    for (i = 0; i < vertices - 1; i++)
+    {
+        for (j = indice; j < vertices - 1; j++)
+        {
+            grafoEliminar->matriz[i][j] = grafoEliminar->matriz[i][j + 1];
+        }
+        grafoEliminar->matriz[i] = (Peso *)realloc(grafoEliminar->matriz[i], (vertices - 1) * sizeof(Peso));
+    }
+
+    grafoEliminar->matriz = (Peso **)realloc(grafoEliminar->matriz, (vertices - 1) * sizeof(Peso *));
+
+    grafoEliminar->vertices--;
+    printf("\nCiudad eliminada correctamente\n");
+}
