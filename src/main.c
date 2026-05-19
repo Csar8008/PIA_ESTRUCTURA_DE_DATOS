@@ -38,11 +38,13 @@ int main()
         {
 
         case 1:
+            system("cls");
             imprimirMatriz(vuelos);
+            system("pause");
+            system("cls");
             break;
-
         case 2:
-
+            system("cls");
             printf("\nCiudades disponibles:\n");
 
             for (i = 0; i < vuelos->vertices; i++)
@@ -56,7 +58,7 @@ int main()
             printf("Destino: ");
             destino = solicitarEntero(0, (vuelos->vertices) - 1);
 
-            printf("\n1. Mostrando todos los caminos posibles\n"); // muestra los caminos
+            system("cls");
             mostrarTodosLosCaminos(vuelos, origen, destino);
             printf("\nCriterio de optimizacion:\n");
             printf("1. Menor tiempo\n");
@@ -64,7 +66,8 @@ int main()
             printf("Opcion: "); // muestra el mejor camino en base a las necesidades del usuario
             tipo = solicitarEntero(1, 2);
             dijkstra(vuelos, origen, destino, tipo);
-
+            system("pause");
+            system("cls");
             break;
 
         case 3:
@@ -128,12 +131,10 @@ int main()
             break; 
 
         case 0:
+            system("cls");
             printf("\nSaliendo...\n");
             Sleep(3000);
             break;
-
-        default:
-            printf("\nOpcion invalida\n");
         }
     } while (opcion != 0);
 

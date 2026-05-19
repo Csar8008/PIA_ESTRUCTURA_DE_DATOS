@@ -105,8 +105,14 @@ void dijkstra(Grafo *grafo, int origen, int destino, int criterio)
         return;
     }
 
-    printf("\n===== MEJOR RUTA =====\n\n");
-
+    if (criterio == 1)
+    {
+        printf("\n===== MEJOR RUTA (MENOR TIEMPO) =====\n\n");
+    }else if (criterio == 2)
+    {
+        printf("\n===== MEJOR RUTA (MENOR COSTO) =====\n\n");
+    }
+    
     imprimirRuta(anteriores, destino, grafo); // imprime los nodos por los que paso
 
     printf("\n");
@@ -190,7 +196,7 @@ void mostrarTodosLosCaminos(Grafo *g, int origen, int destino)
     int visitado[100] = {0};
     int path[100];
 
-    printf("\nTODAS LAS POSIBLES RUTAS PARA LLEGAR:\n");
+    printf("\nMOSTRANDO TODAS LAS POSIBLES RUTAS PARA LLEGAR:\n");
 
     dfsCaminos(g, origen, destino, visitado, path, 0, 0, 0.0);
 }
