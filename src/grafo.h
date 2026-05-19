@@ -33,4 +33,12 @@ void imprimirMatriz(Grafo *grafo);
 
 Grafo *importarGrafo();
 
+void modificarRuta(Grafo *grafoModificar, int origen, int destino, int tiempo, double costo);
+
+void eliminarRuta(Grafo *grafoEliminar, int origen, int destino);
+
+void agregarCiudad(Grafo *grafoModificar, char *nombreCiudad);
+
+void eliminarCiudad(Grafo *grafoEliminar, int indiceCiudad);
+
 #endif

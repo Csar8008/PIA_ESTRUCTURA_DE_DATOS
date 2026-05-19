@@ -15,7 +15,9 @@ int main()
         return 1;
     }
 
-    int opcion, origen, destino, tipo;
+    int i, opcion, origen, destino, tipo, opcionEditar, tiempo;
+    double costo;
+    char ciudad[30];
 
     do
     {
@@ -26,11 +28,11 @@ int main()
 
         printf("\n1. Mostrar matriz de vuelos\n");
         printf("2. Calcular rutas\n");
+        printf("3. Modificar matriz de adyacencia\n");
         printf("0. Salir\n");
 
         printf("\nOpcion: ");
-        scanf("%d", &opcion);
-        opcion = solicitarEntero(0,2);
+        opcion = solicitarEntero(0, 3);
 
         switch (opcion)
         {
@@ -43,7 +45,7 @@ int main()
 
             printf("\nCiudades disponibles:\n");
 
-            for (int i = 0; i < vuelos->vertices; i++)
+            for (i = 0; i < vuelos->vertices; i++)
             { // muestra los destinos
                 printf("%d. %s\n", i, vuelos->etiquetas[i]);
             }
@@ -64,6 +66,66 @@ int main()
             dijkstra(vuelos, origen, destino, tipo);
 
             break;
+
+        case 3:
+            printf("\nQue accion desea realizar?\n");
+            printf("1. Modificar o agregar los valores de una ruta\n");
+            printf("2. Eliminar una ruta entre ciudades\n");
+            printf("3. Agregar una ciudad a la matriz\n");
+            printf("4. Eliminar una ciudad de la matriz\n");
+            printf("0. Salir\n");
+            printf("\nOpcion: ");
+            opcionEditar = solicitarEntero(0, 4);
+
+            if (opcionEditar == 1 || opcionEditar == 2)
+            {
+                printf("\nCiudades disponibles:\n");
+                for (i = 0; i < vuelos->vertices; i++)
+                {
+                    printf("%d. %s\n", i, vuelos->etiquetas[i]);
+                }
+                printf("\nOrigen: ");
+                int orig = solicitarEntero(0, vuelos->vertices - 1);
+                printf("Destino: ");
+                int dest = solicitarEntero(0, vuelos->vertices - 1);
+
+                if (orig == dest)
+                {
+                    printf("\nError. El origen y destino no pueden ser el mismo.\n");
+                }
+                else if (opcionEditar == 1)
+                {
+                    printf("Ingrese el nuevo tiempo (en minutos): ");
+                    tiempo = solicitarEntero(1, 9999);
+                    printf("Ingrese el nuevo costo: ");
+                    costo = solicitarFlotante(0.1, 99999.0);
+                    modificarRuta(vuelos, orig, dest, tiempo, costo);
+                }
+                else
+                {
+                    eliminarRuta(vuelos, orig, dest);
+                }
+            }
+            else if (opcionEditar == 3)
+            {
+                printf("\nIngrese el nombre de la nueva ciudad: ");
+                fflush(stdin);
+                fgets(ciudad, 30, stdin);
+                ciudad[strcspn(ciudad, "\n")] = 0; 
+                agregarCiudad(vuelos, ciudad);
+            }
+            else if (opcionEditar == 4)
+            {
+                printf("\nCiudades disponibles:\n");
+                for (i = 0; i < vuelos->vertices; i++)
+                {
+                    printf("%d. %s\n", i, vuelos->etiquetas[i]);
+                }
+                printf("\nIndique el numero de la ciudad a eliminar: ");
+                origen = solicitarEntero(0, vuelos->vertices - 1);
+                eliminarCiudad(vuelos, origen);
+            }
+            break; 
 
         case 0:
             printf("\nSaliendo...\n");
