@@ -195,7 +195,7 @@ void mostrarTodosLosCaminos(Grafo *g, int origen, int destino)
 
 void guardarHistorial(Grafo *grafo,int origen,int destino,double costo,double tiempo){
 
-    FILE *archivo = fopen("historial.txt", "a");
+    FILE *archivo = fopen("src/historial.txt", "a");
 
     if (archivo == NULL) {
         printf("No se pudo abrir el historial\n");
@@ -216,7 +216,7 @@ void guardarHistorial(Grafo *grafo,int origen,int destino,double costo,double ti
 
 void mostrarHistorial() {
     system("cls");
-    FILE *archivo = fopen("historial.txt", "r");
+    FILE *archivo = fopen("src/historial.txt", "r");
 
     if (archivo == NULL) {
 
