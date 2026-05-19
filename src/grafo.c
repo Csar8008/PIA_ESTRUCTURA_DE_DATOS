@@ -101,7 +101,7 @@ Grafo *importarGrafo()
 {
     int i, j, tam;
     char buffer[50];
-    FILE *grafoArchivo = fopen("src/EjemploGrafoVuelos.txt", "r");
+    FILE *grafoArchivo = fopen("src/GrafoVuelos.txt", "r");
     Grafo *grafoTemp = NULL;
 
     if (!validarFormatoArchivo(grafoArchivo))
