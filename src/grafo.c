@@ -102,7 +102,7 @@ Grafo *importarGrafo()
 {
     int i, j, tam;
     char buffer[50];
-    FILE *grafoArchivo = fopen("GrafoVuelos.txt", "r");
+    FILE *grafoArchivo = fopen("src/GrafoVuelos.txt", "r");
     Grafo *grafoTemp = NULL;
 
     if (!validarFormatoArchivo(grafoArchivo))
@@ -299,6 +299,7 @@ void mostrarVuelos(Grafo *grafo)
     opcion = solicitarEntero(0, 2);
     if (opcion == 2)
     {
+        system("cls");
         printf("\n");
 
         for (int i = 0; i < grafo->vertices; i++)
@@ -355,6 +356,7 @@ void mostrarVuelos(Grafo *grafo)
 
         printf("\nSeleccione una ciudad: ");
         aeropuerto = solicitarEntero(0, 19);
+        system("cls");
 
         if (aeropuerto < 0 || aeropuerto >= grafo->vertices)
         {

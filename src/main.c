@@ -12,6 +12,7 @@ int main()
     if (vuelos == NULL)
     { // validar que el grafo exista
         printf("Error al cargar el grafo\n");
+        system("pause");
         return 1;
     }
 
@@ -28,8 +29,8 @@ int main()
 
         printf("\n  1]. Mostrar tabla de vuelos disponibles\n");
         printf("  2]. Calcular rutas                     \n");
-        printf("  3]. ajustes     \n");
-        printf("  4]. historial de rutas                 \n");
+        printf("  3]. Ajustes     \n");
+        printf("  4]. Historial de rutas                 \n");
         printf("  0]. Salir           \033[0m                   \n");
         printf("\n\033[1;36m==========================================\n");
         printf("\nOpcion: ");
@@ -50,7 +51,7 @@ int main()
             printf("\033[1;32m=====================================\n");
             printf("          CALCULAR RUTAS\n");
             printf("=====================================\033[0m\n");
-            printf("\nCiudaes disponibles:\n");
+            printf("\nCiudades disponibles:\n");
 
             for (i = 0; i < vuelos->vertices; i++)
             { // muestra los destinos
@@ -70,19 +71,21 @@ int main()
             printf("\nRECURSO A OPTIMIZAR EN EL VIAJE:\n");
             printf("  1] Menor tiempo\n");
             printf("  2] Menor costo\n");
-            printf("  0] cancelar\n");
+            printf("  0] Cancelar\n");
             printf("Opcion: "); // muestra el mejor camino en base a las necesidades del usuario
             tipo = solicitarEntero(0, 2);
             if(tipo == 0){
                 system("cls");
                 break;
             }
+            system("cls");
             dijkstra(vuelos, origen, destino, tipo);
             system("pause");
             system("cls");
             break;
 
         case 3:
+            system("cls");
             printf("\nQue accion desea realizar?\n");
             printf("1. Modificar o agregar los valores de una ruta\n");
             printf("2. Eliminar una ruta entre ciudades\n");
@@ -92,7 +95,7 @@ int main()
             printf("0. Salir\n");
             printf("\nOpcion: ");
             opcionEditar = solicitarEntero(0, 5);
-
+            system("cls");
             if (opcionEditar == 1 || opcionEditar == 2)
             {
                 printf("\nCiudades disponibles:\n");
