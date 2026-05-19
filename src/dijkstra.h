@@ -16,4 +16,13 @@ void dijkstra(Grafo *grafo, int origen, int destino, int criterio);
 
 void mostrarTodosLosCaminos(Grafo *g, int origen, int destino);
 
+void eliminarCiudad(Grafo *grafoEliminar, int indice);
+
+void guardarHistorial(Grafo *grafo,int origen,int destino,double costo,double tiempo);
+
+void mostrarHistorial();
+
+void mostrarVuelos(Grafo *grafo);
+
+
 #endif

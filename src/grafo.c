@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "grafo.h"
+#include "utils.h"
 
 int validarFormatoArchivo(FILE *archivo)
 {
@@ -101,7 +102,7 @@ Grafo *importarGrafo()
 {
     int i, j, tam;
     char buffer[50];
-    FILE *grafoArchivo = fopen("src/GrafoVuelos.txt", "r");
+    FILE *grafoArchivo = fopen("GrafoVuelos.txt", "r");
     Grafo *grafoTemp = NULL;
 
     if (!validarFormatoArchivo(grafoArchivo))
@@ -149,6 +150,7 @@ Grafo *importarGrafo()
 // Utiliza sprintf para guardar lo que se imprime en cada celda en una cadena para poder formatearse con facilidad
 void imprimirMatriz(Grafo *grafo)
 {
+    system("mode con: cols=200 lines=200");
     if (grafo == NULL)
         return;
 
@@ -276,4 +278,119 @@ void eliminarCiudad(Grafo *grafoEliminar, int indice)
 
     grafoEliminar->vertices--;
     printf("\nCiudad eliminada correctamente\n");
+}
+
+void mostrarVuelos(Grafo *grafo)
+{
+    if (grafo == NULL)
+        return;
+
+    int opcion;
+
+    printf("\n");
+    printf("\033[1;36m=====================================\n");
+    printf("         VUELOS DISPONIBLES\n");
+    printf("=====================================\033[0m\n");
+    printf("  1] Buscar vuelos de un aeropuerto\n");
+    printf("  2] Mostrar todos los vuelos\n");
+    printf("  0] Cancelar\n");
+    printf("\n\033[1;36m=====================================\033[0m\n");
+    printf("Seleccione una opcion: ");
+    opcion = solicitarEntero(0, 2);
+    if (opcion == 2)
+    {
+        printf("\n");
+
+        for (int i = 0; i < grafo->vertices; i++)
+        {
+            printf("\033[1;32m=====================================\n");
+            printf("ORIGEN: %s\n", grafo->etiquetas[i]);
+            printf("=====================================\033[0m\n");
+
+            int tieneVuelos = 0;
+
+            for (int j = 0; j < grafo->vertices; j++)
+            {
+                if (grafo->matriz[i][j].tiempoVuelo > 0)
+                {
+                    printf(
+                        "\n[%d] %s -> %s\n",
+                        j + 1,
+                        grafo->etiquetas[i],
+                        grafo->etiquetas[j]
+                    );
+
+                    printf(
+                        "Tiempo: %.1f horas\n",
+                        grafo->matriz[i][j].tiempoVuelo / 60.0
+                    );
+
+                    printf(
+                        "Costo : $%.2f\n",
+                        grafo->matriz[i][j].costoVuelo
+                    );
+
+                    tieneVuelos = 1;
+                }
+            }
+
+            if (!tieneVuelos)
+            {
+                printf("\nNo hay vuelos disponibles.\n");
+            }
+
+            printf("\n");
+        }
+    }
+    else if (opcion == 1)
+    {
+        int aeropuerto;
+
+        printf("\n");
+
+        for (int i = 0; i < grafo->vertices; i++)
+        {
+            printf("  %d] %s\n", i, grafo->etiquetas[i]);
+        }
+
+        printf("\nSeleccione una ciudad: ");
+        aeropuerto = solicitarEntero(0, 19);
+
+        if (aeropuerto < 0 || aeropuerto >= grafo->vertices)
+        {
+            printf("\nOpcion invalida.\n");
+            return;
+        }
+
+        printf("\n");
+        printf("\033[1;32m=====================================\n");
+        printf("VUELOS DESDE: %s\n", grafo->etiquetas[aeropuerto]);
+        printf("=====================================\033[0m\n");
+
+        int tieneVuelos = 0;
+
+        for (int j = 0; j < grafo->vertices; j++)
+        {
+            if (grafo->matriz[aeropuerto][j].tiempoVuelo > 0)
+            {
+                printf("\n%s -> %s\n",grafo->etiquetas[aeropuerto], grafo->etiquetas[j]);
+                printf("Tiempo: %.1f horas\n",grafo->matriz[aeropuerto][j].tiempoVuelo / 60.0);
+                printf("Costo : $%.2f\n",grafo->matriz[aeropuerto][j].costoVuelo);
+                tieneVuelos = 1;
+            }
+        }
+        if (!tieneVuelos)
+        {
+            printf("\nNo hay vuelos disponibles.\n");
+        }
+
+        printf("\n");
+    }
+    else if(opcion == 0){
+        return;
+    }
+    else
+    {
+        printf("\nOpcion invalida.\n");
+    }
 }

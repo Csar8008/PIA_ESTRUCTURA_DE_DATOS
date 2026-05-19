@@ -107,10 +107,10 @@ void dijkstra(Grafo *grafo, int origen, int destino, int criterio)
 
     if (criterio == 1)
     {
-        printf("\n===== MEJOR RUTA (MENOR TIEMPO) =====\n\n");
+        printf("\n\033[1;32m===== MEJOR RUTA (MENOR TIEMPO) =====\033[0m\n\n");
     }else if (criterio == 2)
     {
-        printf("\n===== MEJOR RUTA (MENOR COSTO) =====\n\n");
+        printf("\n\033[1;32m===== MEJOR RUTA (MENOR COSTO) =====\033[0m\n\n");
     }
     
     imprimirRuta(anteriores, destino, grafo); // imprime los nodos por los que paso
@@ -135,7 +135,7 @@ void dijkstra(Grafo *grafo, int origen, int destino, int criterio)
 
     printf("\nTiempo total: %.2f horas\n", tiempoTotal / 60.0);
     printf("Costo total: $%.2f\n", costoTotal);
-
+    guardarHistorial(grafo,origen,destino,costoTotal,tiempoTotal / 60.0);
     free(distancias);
     free(visitados);
     free(anteriores);
@@ -174,15 +174,7 @@ void dfsCaminos(Grafo *g, int actual, int destino, int visitado[], int path[], i
                 g->matriz[actual][i].tiempoVuelo > 0)
             {
 
-                dfsCaminos(
-                    g,
-                    i,
-                    destino,
-                    visitado,
-                    path,
-                    nivel,
-                    tiempoAcum + g->matriz[actual][i].tiempoVuelo,
-                    costoAcum + g->matriz[actual][i].costoVuelo);
+                dfsCaminos(g,i,destino,visitado,path,nivel,tiempoAcum + g->matriz[actual][i].tiempoVuelo,costoAcum + g->matriz[actual][i].costoVuelo);
             }
         }
     }
@@ -196,7 +188,51 @@ void mostrarTodosLosCaminos(Grafo *g, int origen, int destino)
     int visitado[100] = {0};
     int path[100];
 
-    printf("\nMOSTRANDO TODAS LAS POSIBLES RUTAS PARA LLEGAR:\n");
+    printf("\n\033[1;32m==========MOSTRANDO TODAS LAS POSIBLES RUTAS PARA LLEGAR:===========\033[0m\n");
 
     dfsCaminos(g, origen, destino, visitado, path, 0, 0, 0.0);
+}
+
+void guardarHistorial(Grafo *grafo,int origen,int destino,double costo,double tiempo){
+
+    FILE *archivo = fopen("historial.txt", "a");
+
+    if (archivo == NULL) {
+        printf("No se pudo abrir el historial\n");
+        return;
+    }
+
+    fprintf(
+        archivo,
+        "%s -> %s | Tiempo: %.2f h | Costo: $%.2f\n",
+        grafo->etiquetas[origen],
+        grafo->etiquetas[destino],
+        tiempo,
+        costo
+    );
+
+    fclose(archivo);
+}
+
+void mostrarHistorial() {
+    system("cls");
+    FILE *archivo = fopen("historial.txt", "r");
+
+    if (archivo == NULL) {
+
+        printf("\nNo hay historial disponible.\n");
+        return;
+    }
+
+    char linea[200];
+
+    printf("\n\033[1;36m=========================== HISTORIAL ===========================\033[0m\n\n");
+
+    while (fgets(linea, sizeof(linea), archivo)) {
+
+        printf("%s\n", linea);
+    }
+    system("pause");
+    system("cls");
+    fclose(archivo);
 }

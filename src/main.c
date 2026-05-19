@@ -22,49 +22,61 @@ int main()
     do
     {
 
-        printf("\n=================================\n");
-        printf("   SISTEMA DE RUTAS DE VUELOS\n");
-        printf("=================================\n");
+        printf("\n\033[1;36m==========================================\n");
+        printf("         SISTEMA DE RUTAS DE VUELOS    ");
+        printf("\n==========================================\033[0m\n");
 
-        printf("\n1. Mostrar matriz de vuelos\n");
-        printf("2. Calcular rutas\n");
-        printf("3. Modificar matriz de adyacencia\n");
-        printf("0. Salir\n");
-
+        printf("\n  1]. Mostrar tabla de vuelos disponibles\n");
+        printf("  2]. Calcular rutas                     \n");
+        printf("  3]. ajustes     \n");
+        printf("  4]. historial de rutas                 \n");
+        printf("  0]. Salir           \033[0m                   \n");
+        printf("\n\033[1;36m==========================================\n");
         printf("\nOpcion: ");
-        opcion = solicitarEntero(0, 3);
-
+        printf("\033[1;36m");
+        opcion = solicitarEntero(0, 4);
+        printf("\033[0m");
         switch (opcion)
         {
 
         case 1:
             system("cls");
-            imprimirMatriz(vuelos);
+            mostrarVuelos(vuelos);
             system("pause");
             system("cls");
             break;
         case 2:
             system("cls");
-            printf("\nCiudades disponibles:\n");
+            printf("\033[1;32m=====================================\n");
+            printf("          CALCULAR RUTAS\n");
+            printf("=====================================\033[0m\n");
+            printf("\nCiudaes disponibles:\n");
 
             for (i = 0; i < vuelos->vertices; i++)
             { // muestra los destinos
                 printf("%d. %s\n", i, vuelos->etiquetas[i]);
             }
 
-            printf("\nOrigen: ");
+            printf("\n\033[1;32mSELECCIONE LA CIUDAD DE ORIGEN:\033[0m ");
             origen = solicitarEntero(0, (vuelos->vertices) - 1);
 
-            printf("Destino: ");
+            printf("\033[1;32mSELECCIONE LA CIUDAD DESTINO\033[0m: ");
             destino = solicitarEntero(0, (vuelos->vertices) - 1);
 
             system("cls");
             mostrarTodosLosCaminos(vuelos, origen, destino);
-            printf("\nCriterio de optimizacion:\n");
-            printf("1. Menor tiempo\n");
-            printf("2. Menor costo\n");
+            system("pause");
+            system("cls");
+            printf("\nRECURSO A OPTIMIZAR EN EL VIAJE:\n");
+            printf("  1] Menor tiempo\n");
+            printf("  2] Menor costo\n");
+            printf("  0] cancelar\n");
             printf("Opcion: "); // muestra el mejor camino en base a las necesidades del usuario
-            tipo = solicitarEntero(1, 2);
+            tipo = solicitarEntero(0, 2);
+            if(tipo == 0){
+                system("cls");
+                break;
+            }
             dijkstra(vuelos, origen, destino, tipo);
             system("pause");
             system("cls");
@@ -76,9 +88,10 @@ int main()
             printf("2. Eliminar una ruta entre ciudades\n");
             printf("3. Agregar una ciudad a la matriz\n");
             printf("4. Eliminar una ciudad de la matriz\n");
+            printf("5. Ver matriz de vuelos\n");
             printf("0. Salir\n");
             printf("\nOpcion: ");
-            opcionEditar = solicitarEntero(0, 4);
+            opcionEditar = solicitarEntero(0, 5);
 
             if (opcionEditar == 1 || opcionEditar == 2)
             {
@@ -128,8 +141,19 @@ int main()
                 origen = solicitarEntero(0, vuelos->vertices - 1);
                 eliminarCiudad(vuelos, origen);
             }
+            else if(opcionEditar == 5)
+            {
+                system("cls");
+                imprimirMatriz(vuelos);
+                system("pause");
+                system("cls");
+                break;
+            }
+            system("cls");
             break; 
-
+        case 4:
+                mostrarHistorial();
+                break;
         case 0:
             system("cls");
             printf("\nSaliendo...\n");

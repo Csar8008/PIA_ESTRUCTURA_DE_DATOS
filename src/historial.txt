@@ -1,0 +1,15 @@
+Washington D.C. -> Nueva York | Tiempo: 1.20 h | Costo: $150.00
+Washington D.C. -> Nueva York | Tiempo: 1.20 h | Costo: $150.00
+Washington D.C. -> Nueva York | Tiempo: 1.20 h | Costo: $150.00
+Washington D.C. -> Nueva York | Tiempo: 1.20 h | Costo: $150.00
+Nueva York -> Los Angeles | Tiempo: 6.00 h | Costo: $300.00
+Nueva York -> Nueva York | Tiempo: 0.00 h | Costo: $0.00
+Nueva York -> Nueva York | Tiempo: 0.00 h | Costo: $0.00
+Manchester -> Monterrey | Tiempo: 44.80 h | Costo: $3780.00
+Washington D.C. -> Sidney | Tiempo: 24.70 h | Costo: $2350.00
+Washington D.C. -> Sidney | Tiempo: 24.70 h | Costo: $2350.00
+Washington D.C. -> Nueva York | Tiempo: 15.00 h | Costo: $1200.00
+Nueva York -> Los Angeles | Tiempo: 6.00 h | Costo: $300.00
+Washington D.C. -> Nueva York | Tiempo: 1.20 h | Costo: $150.00
+Nueva York -> Toronto | Tiempo: 1.50 h | Costo: $200.00
+Los Angeles -> Vancouver | Tiempo: 2.80 h | Costo: $250.00
